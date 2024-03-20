@@ -11,6 +11,8 @@ const ExpenseForm = ({ setExpenses }) => {
 
   const [errors, setErrors] = useState({});
 
+  const categories = ["Grocery", "Clothes", "Bills", "Education", "Medicine"];
+
   const validate = (formData) => {
     const errorsData = {};
     if (!formData.title) {
@@ -52,8 +54,6 @@ const ExpenseForm = ({ setExpenses }) => {
     setExpense((prevState) => ({ ...prevState, [name]: value }));
     setErrors({});
   };
-
-  const categories = ["Grocery", "Clothes", "Bills", "Education", "Medicine"];
 
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
