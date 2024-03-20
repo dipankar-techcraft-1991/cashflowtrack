@@ -13,7 +13,7 @@ const ExpenseForm = ({ setExpenses }) => {
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
     ]);
-
+    
     setExpense({
       title: "",
       category: "",
