@@ -1,11 +1,10 @@
+import { useState } from "react";
 import ExpenseForm from "./component/ExpenseForm";
 import ExpenseTable from "./component/ExpenseTable";
 import "./App.css";
-import { useState } from "react";
-import expenseData from "../expenseData";
 
 const App = () => {
-  const [expenses, setExpenses] = useState(expenseData);
+  const [expenses, setExpenses] = useState([]);
 
   return (
     <>
