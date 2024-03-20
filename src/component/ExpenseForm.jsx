@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const ExpenseForm = ({ setExpenses }) => {
   const [expense, setExpense] = useState({
@@ -7,12 +7,26 @@ const ExpenseForm = ({ setExpenses }) => {
     amount: "",
   });
 
+  // const refTitle = useRef(null);
+  // const refCategory = useRef(null);
+  // const refAmount = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setExpenses((prevState) => [
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
     ]);
+
+    // setExpenses((prevState) => [
+    //   ...prevState,
+    //   {
+    //     id: crypto.randomUUID(),
+    //     title: refTitle.current.value,
+    //     category: refCategory.current.value,
+    //     amount: refAmount.current.value,
+    //   },
+    // ]);
 
     setExpense({
       title: "",
@@ -32,6 +46,7 @@ const ExpenseForm = ({ setExpenses }) => {
           onChange={(e) =>
             setExpense((prevState) => ({ ...prevState, title: e.target.value }))
           }
+          // ref={refTitle}
           placeholder="Enter title"
         />
       </div>
@@ -47,6 +62,7 @@ const ExpenseForm = ({ setExpenses }) => {
               category: e.target.value,
             }))
           }
+          // ref={refCategory}
         >
           <option value="" hidden>
             Select Category
@@ -70,6 +86,7 @@ const ExpenseForm = ({ setExpenses }) => {
               amount: e.target.value,
             }))
           }
+          // ref={refAmount}
           placeholder="Enter amount"
         />
       </div>
