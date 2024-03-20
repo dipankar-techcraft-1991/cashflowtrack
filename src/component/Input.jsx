@@ -10,6 +10,7 @@ const Input = ({ label, id, name, value, onChange, error }) => {
         value={value}
         onChange={onChange}
         placeholder={`Enter ${name}`}
+        autoComplete="off"
       />
       <span className="error-message">{error}</span>
     </div>

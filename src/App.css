@@ -31,7 +31,7 @@ main h1 {
   margin-top: 0.1rem;
   font-size: 1rem;
   padding-left: 0.3rem;
-  color: rgb(206, 84, 84);
+  color: red;
 }
 
 .expense-table {

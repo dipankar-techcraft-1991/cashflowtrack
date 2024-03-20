@@ -4,20 +4,22 @@ const Select = ({
   name,
   value,
   onChange,
-  categories,
-  hiddenOption,
+  options,
+  defaultOption,
   error,
 }) => {
   return (
     <div className="input-container">
       <label htmlFor="category">{label}</label>
       <select id={id} name={name} value={value} onChange={onChange}>
-        <option value="" hidden>
-          {hiddenOption}
-        </option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
+        {defaultOption && (
+          <option value="" hidden>
+            {defaultOption}
+          </option>
+        )}
+        {options.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
           </option>
         ))}
       </select>

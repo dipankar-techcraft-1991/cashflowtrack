@@ -15,6 +15,8 @@ const ExpenseTable = ({ expenses }) => {
                 <option value="medicine">Medicine</option>
               </select>
             </th>
+
+            <th>Email</th>
             <th className="amount-column">
               <div>
                 <span>Amount</span>
@@ -41,15 +43,17 @@ const ExpenseTable = ({ expenses }) => {
           </tr>
         </thead>
         <tbody>
-          {expenses.map(({ id, title, category, amount }) => (
+          {expenses.map(({ id, title, category, email, amount }) => (
             <tr key={id}>
               <td>{title}</td>
               <td>{category}</td>
+              <td>{email}</td>
               <td>₹{amount}</td>
             </tr>
           ))}
           <tr>
             <th>Total</th>
+            <th></th>
             <th></th>
             <th>₹8100</th>
           </tr>

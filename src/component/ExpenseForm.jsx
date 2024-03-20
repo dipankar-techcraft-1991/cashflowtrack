@@ -7,25 +7,50 @@ const ExpenseForm = ({ setExpenses }) => {
     title: "",
     category: "",
     amount: "",
+    email: "",
   });
 
   const [errors, setErrors] = useState({});
 
-  const categories = ["Grocery", "Clothes", "Bills", "Education", "Medicine"];
+  const options = ["Grocery", "Clothes", "Bills", "Education", "Medicine"];
+
+  const validationConfig = {
+    title: [
+      { required: true, message: "Please enter title" },
+      { minLength: 3, message: "Title should be atleast 5 characters long" },
+    ],
+    category: [{ required: true, message: "Please select category" }],
+    amount: [{ required: true, message: "Please enter an amount" }],
+    email: [
+      { required: true, message: "Please enter an email" },
+      {
+        pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        message: "Please enter a valid email",
+      },
+    ],
+  };
 
   const validate = (formData) => {
     const errorsData = {};
-    if (!formData.title) {
-      errorsData.title = "Please enter title";
-    }
 
-    if (!formData.category) {
-      errorsData.category = "Please select category";
-    }
+    Object.entries(formData).forEach(([key, value]) => {
+      validationConfig[key].some((rule) => {
+        if (rule.required && !value) {
+          errorsData[key] = rule.message;
+          return true;
+        }
 
-    if (!formData.amount) {
-      errorsData.amount = "Please enter amount";
-    }
+        if (rule.minLength && value.length < 3) {
+          errorsData[key] = rule.message;
+          return true;
+        }
+
+        if (rule.pattern && !rule.pattern.test(value)) {
+          errorsData[key] = rule.message;
+          return true;
+        }
+      });
+    });
 
     setErrors(errorsData);
     return errorsData;
@@ -46,6 +71,7 @@ const ExpenseForm = ({ setExpenses }) => {
       title: "",
       category: "",
       amount: "",
+      email: "",
     });
   };
 
@@ -71,8 +97,8 @@ const ExpenseForm = ({ setExpenses }) => {
         name="category"
         value={expense.category}
         onChange={handleChange}
-        categories={categories}
-        hiddenOption="Select Category"
+        options={options}
+        defaultOption="Select Category"
         error={errors.category}
       />
       <Input
@@ -82,6 +108,14 @@ const ExpenseForm = ({ setExpenses }) => {
         value={expense.amount}
         onChange={handleChange}
         error={errors.amount}
+      />
+      <Input
+        label="Email"
+        id="email"
+        name="email"
+        value={expense.email}
+        onChange={handleChange}
+        error={errors.email}
       />
       <button className="add-btn">Add</button>
     </form>
