@@ -7,8 +7,32 @@ const ExpenseForm = ({ setExpenses }) => {
     amount: "",
   });
 
+  const [errors, setErrors] = useState({});
+
+  const validate = (formData) => {
+    const errorsData = {};
+    if (!formData.title) {
+      errorsData.title = "Title is required";
+    }
+
+    if (!formData.category) {
+      errorsData.category = "Category is required";
+    }
+
+    if (!formData.amount) {
+      errorsData.amount = "Amount is required";
+    }
+
+    setErrors(errorsData);
+    return errorsData;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validateResult = validate(expense);
+
+    if (Object.keys(validateResult).length) return;
+
     setExpenses((prevState) => [
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
@@ -22,7 +46,9 @@ const ExpenseForm = ({ setExpenses }) => {
   };
 
   const handleChange = (e) => {
-    (e) => setExpense((prevState) => ({ ...prevState, title: e.target.value }));
+    const { name, value } = e.target;
+    setExpense((prevState) => ({ ...prevState, [name]: value }));
+    setErrors({});
   };
 
   return (
@@ -36,6 +62,7 @@ const ExpenseForm = ({ setExpenses }) => {
           onChange={handleChange}
           placeholder="Enter title"
         />
+        <span className="error-message">{errors.title}</span>
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
@@ -54,6 +81,7 @@ const ExpenseForm = ({ setExpenses }) => {
           <option value="Education">Education</option>
           <option value="Medicine">Medicine</option>
         </select>
+        <span className="error-message">{errors.category}</span>
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
@@ -64,6 +92,7 @@ const ExpenseForm = ({ setExpenses }) => {
           onChange={handleChange}
           placeholder="Enter amount"
         />
+        <span className="error-message">{errors.amount}</span>
       </div>
       <button className="add-btn">Add</button>
     </form>
