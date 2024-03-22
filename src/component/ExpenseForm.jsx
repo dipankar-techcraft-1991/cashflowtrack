@@ -18,8 +18,11 @@ export default function ExpenseForm({
     ],
     category: [{ required: true, message: "Please select a category" }],
     amount: [
-      { required: true, message: "Please enter an amount" },
-      { isNumber: true, message: "Amount should be a number" },
+      {
+        required: true,
+        message: "Please enter an amount",
+        pattern: /^[1-9]\d*(\.\d+)?$/,
+      },
     ],
   };
 
@@ -39,11 +42,6 @@ export default function ExpenseForm({
         }
 
         if (rule.pattern && !rule.pattern.test(value)) {
-          errorsData[key] = rule.message;
-          return true;
-        }
-
-        if (rule.isNumber && rule.isNumber === isNaN(value)) {
           errorsData[key] = rule.message;
           return true;
         }
