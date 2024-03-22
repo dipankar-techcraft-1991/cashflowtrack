@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 import Select from "./Select";
 
-const ExpenseForm = ({ setExpenses }) => {
+export default function ExpenseForm({ setExpenses }) {
   const [expense, setExpense] = useState({
     title: "",
     category: "",
@@ -11,14 +11,12 @@ const ExpenseForm = ({ setExpenses }) => {
 
   const [errors, setErrors] = useState({});
 
-  const options = ["Grocery", "Clothes", "Bills", "Education", "Medicine"];
-
   const validationConfig = {
     title: [
       { required: true, message: "Please enter title" },
-      { minLength: 3, message: "Title should be atleast 5 characters long" },
+      { minLength: 3, message: "Title should be at least 3 characters long" },
     ],
-    category: [{ required: true, message: "Please select category" }],
+    category: [{ required: true, message: "Please select a category" }],
     amount: [
       { required: true, message: "Please enter an amount" },
       { isNumber: true, message: "Amount should be a number" },
@@ -40,6 +38,11 @@ const ExpenseForm = ({ setExpenses }) => {
           return true;
         }
 
+        if (rule.pattern && !rule.pattern.test(value)) {
+          errorsData[key] = rule.message;
+          return true;
+        }
+
         if (rule.isNumber && rule.isNumber === isNaN(value)) {
           errorsData[key] = rule.message;
           return true;
@@ -53,6 +56,7 @@ const ExpenseForm = ({ setExpenses }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const validateResult = validate(expense);
 
     if (Object.keys(validateResult).length) return;
@@ -61,7 +65,6 @@ const ExpenseForm = ({ setExpenses }) => {
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
     ]);
-
     setExpense({
       title: "",
       category: "",
@@ -71,7 +74,10 @@ const ExpenseForm = ({ setExpenses }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExpense((prevState) => ({ ...prevState, [name]: value }));
+    setExpense((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
     setErrors({});
   };
 
@@ -91,7 +97,7 @@ const ExpenseForm = ({ setExpenses }) => {
         name="category"
         value={expense.category}
         onChange={handleChange}
-        options={options}
+        options={["Grocery", "Clothes", "Bills", "Education", "Medicine"]}
         defaultOption="Select Category"
         error={errors.category}
       />
@@ -106,6 +112,4 @@ const ExpenseForm = ({ setExpenses }) => {
       <button className="add-btn">Add</button>
     </form>
   );
-};
-
-export default ExpenseForm;
+}

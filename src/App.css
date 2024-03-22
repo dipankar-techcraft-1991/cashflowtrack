@@ -10,10 +10,6 @@ main {
   margin-inline: auto;
 }
 
-main h1 {
-  text-align: center;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -25,13 +21,6 @@ main h1 {
 
 .expense-form {
   width: 100%;
-}
-
-.error-message {
-  margin-top: 0.1rem;
-  font-size: 1rem;
-  padding-left: 0.3rem;
-  color: red;
 }
 
 .expense-table {
@@ -86,7 +75,8 @@ main h1 {
 .input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
+  position: relative;
 }
 
 .input-container label {
@@ -100,7 +90,7 @@ main h1 {
 
 #category {
   height: 28px;
-  font-family: inherit;
+  font: inherit;
 }
 
 .add-btn {
@@ -115,7 +105,6 @@ main h1 {
   background-color: white;
   border: 1px solid;
   position: absolute;
-  display: none;
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
@@ -131,6 +120,20 @@ main h1 {
   background-color: #ddd;
 }
 
+.error-message {
+  margin-top: 0.1rem;
+  font-size: 1rem;
+  padding-left: 0.3rem;
+  color: red;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+}
 @media (max-width: 900px) {
   body {
     margin-inline: 16px;
