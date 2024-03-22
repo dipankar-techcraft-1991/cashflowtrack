@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-const ExpenseTable = ({ expenses, filteredData, setCategory }) => {
-  // const [category, setCategory] = useState("");
-  // const filteredData = expenses.filter((expense) => {
-  //   return expense.category.toLowerCase().includes(category);
-  // });
-  // console.log(filteredData);
+const ExpenseTable = ({ expenses }) => {
+  const [category, setCategory] = useState("");
+  const filteredData = expenses.filter((expense) => {
+    return expense.category.toLowerCase().includes(category);
+  });
+
   return (
     <>
       <table className="expense-table">
