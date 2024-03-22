@@ -5,7 +5,6 @@ const ExpenseTable = ({ expenses }) => {
     expenses,
     (data) => data.category
   );
-
   const total = filteredData.reduce(
     (accumulator, current) =>
       parseFloat(accumulator) + parseFloat(current.amount),
