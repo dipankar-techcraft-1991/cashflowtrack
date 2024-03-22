@@ -37,6 +37,7 @@ main h1 {
 .expense-table {
   width: 100%;
   border-collapse: collapse;
+  align-self: flex-start;
 }
 
 .expense-table select {

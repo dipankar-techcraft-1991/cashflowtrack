@@ -51,7 +51,7 @@ const ExpenseTable = ({ expenses }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map(({ id, title, category, email, amount }) => (
+          {filteredData.map(({ id, title, categoryW, amount }) => (
             <tr key={id}>
               <td>{title}</td>
               <td>{category}</td>
