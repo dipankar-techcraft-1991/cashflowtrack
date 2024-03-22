@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Input from "./Input";
 import Select from "./Select";
 
-export default function ExpenseForm({ setExpenses }) {
-  const [expense, setExpense] = useState({
-    title: "",
-    category: "",
-    amount: "",
-  });
-
+export default function ExpenseForm({
+  expense,
+  setExpense,
+  setExpenses,
+  editingRowId,
+  setEditingRowId,
+}) {
   const [errors, setErrors] = useState({});
 
   const validationConfig = {
@@ -61,6 +61,26 @@ export default function ExpenseForm({ setExpenses }) {
 
     if (Object.keys(validateResult).length) return;
 
+    if (editingRowId) {
+      setExpenses((prevState) =>
+        prevState.map((prevExpense) => {
+          if (prevExpense.id === editingRowId) {
+            return { ...expense, id: editingRowId };
+          }
+          return prevExpense;
+        })
+      );
+
+      setExpense({
+        title: "",
+        category: "",
+        amount: "",
+      });
+
+      setEditingRowId("");
+      return;
+    }
+
     setExpenses((prevState) => [
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
@@ -109,7 +129,7 @@ export default function ExpenseForm({ setExpenses }) {
         onChange={handleChange}
         error={errors.amount}
       />
-      <button className="add-btn">Add</button>
+      <button className="add-btn">{editingRowId ? "Update" : "Add"}</button>
     </form>
   );
 }
