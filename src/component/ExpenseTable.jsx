@@ -1,4 +1,11 @@
-const ExpenseTable = ({ expenses }) => {
+import { useState } from "react";
+
+const ExpenseTable = ({ expenses, filteredData, setCategory }) => {
+  // const [category, setCategory] = useState("");
+  // const filteredData = expenses.filter((expense) => {
+  //   return expense.category.toLowerCase().includes(category);
+  // });
+  // console.log(filteredData);
   return (
     <>
       <table className="expense-table">
@@ -6,7 +13,10 @@ const ExpenseTable = ({ expenses }) => {
           <tr>
             <th>Title</th>
             <th>
-              <select id="category">
+              <select
+                id="category"
+                onChange={(e) => setCategory(e.target.value.toLowerCase())}
+              >
                 <option value="">All</option>
                 <option value="grocery">Grocery</option>
                 <option value="clothes">Clothes</option>
@@ -15,8 +25,6 @@ const ExpenseTable = ({ expenses }) => {
                 <option value="medicine">Medicine</option>
               </select>
             </th>
-
-            <th>Email</th>
             <th className="amount-column">
               <div>
                 <span>Amount</span>
@@ -43,17 +51,15 @@ const ExpenseTable = ({ expenses }) => {
           </tr>
         </thead>
         <tbody>
-          {expenses.map(({ id, title, category, email, amount }) => (
+          {filteredData.map(({ id, title, category, email, amount }) => (
             <tr key={id}>
               <td>{title}</td>
               <td>{category}</td>
-              <td>{email}</td>
               <td>₹{amount}</td>
             </tr>
           ))}
           <tr>
             <th>Total</th>
-            <th></th>
             <th></th>
             <th>₹8100</th>
           </tr>

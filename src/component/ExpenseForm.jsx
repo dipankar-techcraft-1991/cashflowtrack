@@ -7,7 +7,6 @@ const ExpenseForm = ({ setExpenses }) => {
     title: "",
     category: "",
     amount: "",
-    email: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -20,13 +19,9 @@ const ExpenseForm = ({ setExpenses }) => {
       { minLength: 3, message: "Title should be atleast 5 characters long" },
     ],
     category: [{ required: true, message: "Please select category" }],
-    amount: [{ required: true, message: "Please enter an amount" }],
-    email: [
-      { required: true, message: "Please enter an email" },
-      {
-        pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        message: "Please enter a valid email",
-      },
+    amount: [
+      { required: true, message: "Please enter an amount" },
+      { isNumber: true, message: "Amount should be a number" },
     ],
   };
 
@@ -45,7 +40,7 @@ const ExpenseForm = ({ setExpenses }) => {
           return true;
         }
 
-        if (rule.pattern && !rule.pattern.test(value)) {
+        if (rule.isNumber && rule.isNumber === isNaN(value)) {
           errorsData[key] = rule.message;
           return true;
         }
@@ -71,7 +66,6 @@ const ExpenseForm = ({ setExpenses }) => {
       title: "",
       category: "",
       amount: "",
-      email: "",
     });
   };
 
@@ -108,14 +102,6 @@ const ExpenseForm = ({ setExpenses }) => {
         value={expense.amount}
         onChange={handleChange}
         error={errors.amount}
-      />
-      <Input
-        label="Email"
-        id="email"
-        name="email"
-        value={expense.email}
-        onChange={handleChange}
-        error={errors.email}
       />
       <button className="add-btn">Add</button>
     </form>
