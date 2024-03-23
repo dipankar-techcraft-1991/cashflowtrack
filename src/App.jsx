@@ -2,6 +2,7 @@ import { useState } from "react";
 import ExpenseForm from "./component/ExpenseForm";
 import ExpenseTable from "./component/ExpenseTable";
 import expenseData from "../expenseData";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import "./App.css";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     category: "",
     amount: "",
   });
-  const [expenses, setExpenses] = useState(expenseData);
+  const [expenses, setExpenses] = useLocalStorage("expenses", []);
   const [editingRowId, setEditingRowId] = useState("");
 
   return (
